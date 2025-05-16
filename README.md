@@ -38,6 +38,7 @@ mvn spring-boot:run
 
 ### 動作確認①
 http://localhost:8080/home
+
 Hello, World!と出力されること
 
 ## front
@@ -59,10 +60,13 @@ npm run build
 
 ### 動作確認②
 http://localhost:3000/test
+
 This is a test page.と出力されること
 
 http://localhost:80/test
+
 This is a test page.と出力されること
 
 http://localhost:80/api
+
 Hello, World!と出力されること
