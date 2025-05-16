@@ -37,7 +37,7 @@ mvn spring-boot:run
 ```
 
 ### 動作確認①
-http://localhost:8080/home
+http://localhost:8080/
 
 Hello, World!と出力されること
 
