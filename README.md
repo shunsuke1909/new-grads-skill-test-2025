@@ -1,9 +1,9 @@
 # はじめに
 適性テスト用環境です。
 
-フロントエンド：Next.js
-バックエンド：Spring Boot
-DB：postgresql
+- フロントエンド：Next.js
+- バックエンド：Spring Boot
+- DB：postgresql
 
 テスト時、バックエンドへのリクエストurlは一律`http://localhost:80/api`を使用してください。
 
