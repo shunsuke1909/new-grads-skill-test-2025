@@ -1,0 +1,113 @@
+openapi: '3.0.0'
+info:
+  title: New Grads Training TODO List API
+  version: 1.0.0
+
+paths:
+  /todos:
+    post:
+      summary: todoを追加する
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  example: "くまおさんに連絡する"
+                  description: "TODOのタイトル"
+      responses:
+        '201':
+          description: TODO created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              example:
+                id: 1
+  
+    get:
+      summary: todoの一覧を取得する
+      responses:
+        '200':
+          description: A list of todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: "TODOのID"
+                    title:
+                      type: string
+                      description: "TODOのタイトル"
+                    is_completed:
+                      type: boolean
+                      description: "TODOの完了状態"
+                example:
+                - id: 1
+                  title: "くまおさんに連絡する"
+                  is_completed: false
+                - id: 2
+                  title: "牛乳を買う"
+                  is_completed: true
+
+
+  /todos/{id}:
+    put:
+      summary: todoのステータス（完了/未完了）を更新する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the todo to update
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - is_completed
+              properties:
+                is_completed:
+                  type: boolean
+                  example: true
+                  description: "TODOの完了状態"
+      responses:
+        '200':
+          description: TODO updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+              example:
+                id: 1
+        
+    delete:
+      summary: todoを削除する
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the todo to delete
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: TODO deleted successfully
