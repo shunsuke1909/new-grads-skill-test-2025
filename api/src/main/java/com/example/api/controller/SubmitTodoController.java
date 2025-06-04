@@ -24,6 +24,7 @@ public class SubmitTodoController {
         Todo todos = new Todo();
 
         todos.setTitle(form.title);
+        todos.setIsCompleted(form.isCompleted);
 
 
         todoRepository.save(todos);

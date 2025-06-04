@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 // フォーム型、型きめ
 type ToDoForm = {
   title: string;
+  is_completed: boolean;
 };
+
 //初期値
 const defaultForm: ToDoForm = {
   title: "",
+  is_completed: false,
 };
+
 //コンポーネントの定義　フォームの初期化、プルダウンの初期化、送信値の設定
 export default function ContactPage() {
   const [form, setForm] = useState<ToDoForm>(defaultForm);
@@ -23,6 +27,7 @@ export default function ContactPage() {
       setForm(prev => ({ ...prev, [name]: value }));
     }
   };
+
 
   // バリデーション
   const validate = () => {
@@ -41,7 +46,10 @@ export default function ContactPage() {
     //送信するデータ（formの中身）をまとめる
     const sendData = {
       title: form.title,
+      is_completed: form.is_completed,
     };
+
+    console.log(sendData); 
 
     try {
       // サーバーAPIにPOSTリクエストでデータ送信

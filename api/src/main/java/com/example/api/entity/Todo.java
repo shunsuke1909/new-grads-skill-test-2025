@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
 import java.sql.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+
+
 
 @Entity
 @Table(name = "todos")
@@ -13,10 +18,15 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+
     @Column(name = "is_completed")
     private Boolean isCompleted;
+
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
-}br
+}
