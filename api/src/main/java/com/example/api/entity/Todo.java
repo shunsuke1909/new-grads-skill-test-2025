@@ -3,9 +3,9 @@ package com.example.api.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import lombok.Data;
-import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
@@ -20,6 +20,7 @@ public class Todo {
     private String title;
 
     @Column(name = "is_completed")
+    @JsonProperty("is_completed")
     private Boolean isCompleted;
 
     @Column(name = "created_at")

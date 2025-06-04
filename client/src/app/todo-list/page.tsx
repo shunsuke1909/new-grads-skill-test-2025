@@ -1,7 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // フォーム型、型きめ
 type ToDoForm = {
+  title: string;
+  is_completed: boolean;
+};
+
+type Todo = {
+  id: number;
   title: string;
   is_completed: boolean;
 };
@@ -16,6 +22,19 @@ const defaultForm: ToDoForm = {
 export default function ContactPage() {
   const [form, setForm] = useState<ToDoForm>(defaultForm);
   const [submitting, setSubmitting] = useState(false);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const fetchTodos = async () => {
+    const res = await fetch("http://localhost:80/api/todos");
+    if (res.ok) {
+      const data: Todo[] = await res.json();
+      setTodos(data);
+    }
+  };
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   // リアルタイムで入力値変更処理
   const handleChange = (
@@ -60,6 +79,7 @@ export default function ContactPage() {
         // 成功したら「送信完了」のアラートを表示し、フォームを初期状態に戻す
         alert("お問い合わせを送信しました！");
         setForm(defaultForm);
+        fetchTodos();
       } else {
         // サーバーからエラーが返ってきた場合
         alert("送信に失敗しました");
@@ -70,6 +90,20 @@ export default function ContactPage() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const toggleTodo = async (todo: Todo) => {
+    await fetch(`http://localhost:80/api/todos/${todo.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ is_completed: !todo.is_completed }),
+    });
+    fetchTodos();
+  };
+
+  const deleteTodo = async (id: number) => {
+    await fetch(`http://localhost:80/api/todos/${id}`, { method: "DELETE" });
+    fetchTodos();
   };
 
   return (
@@ -103,6 +137,21 @@ export default function ContactPage() {
           </tbody>
         </table>
       </form>
+      <ul>
+        {todos.map(t => (
+          <li key={t.id}>
+            <label>
+              <input
+                type="checkbox"
+                checked={t.is_completed}
+                onChange={() => toggleTodo(t)}
+              />
+              {t.title}
+            </label>
+            <button onClick={() => deleteTodo(t.id)}>delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
