@@ -15,11 +15,16 @@ paths:
               type: object
               required:
                 - title
+                - is_completed
               properties:
                 title:
                   type: string
                   example: "くまおさんに連絡する"
                   description: "TODOのタイトル"
+                is_completed:
+                  type: boolean
+                  example: false
+                  description: "TODOの完了状態"
       responses:
         '201':
           description: TODO created successfully
