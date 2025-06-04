@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // フォーム型、型きめ
 type ToDoForm = {
   title: string;
@@ -21,11 +21,9 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    // 変更があったフォーム要素からname, value, typeを取得
-    const { name, value, type } = e.target;
-    {
-      setForm(prev => ({ ...prev, [name]: value }));
-    }
+    // 変更があったフォーム要素からname, valueを取得
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
 
@@ -53,7 +51,7 @@ export default function ContactPage() {
 
     try {
       // サーバーAPIにPOSTリクエストでデータ送信
-      const res = await fetch("http://localhost:8080/api/todos", {
+      const res = await fetch("http://localhost:80/api/todos", {
         method: "POST",
         headers: { "Content-Type": "application/json" }, // JSON形式で送る
         body: JSON.stringify(sendData), // データをJSON文字列に変換して送信
