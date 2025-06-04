@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // フォーム型、型きめ
 type ToDoForm = {
   title: string;
@@ -21,11 +21,9 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    // 変更があったフォーム要素からname, value, typeを取得
-    const { name, value, type } = e.target;
-    {
-      setForm(prev => ({ ...prev, [name]: value }));
-    }
+    // 変更があったフォーム要素からname, valueを取得
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
 
